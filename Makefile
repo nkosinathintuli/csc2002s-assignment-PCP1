@@ -19,8 +19,11 @@ default: $(CLASS_FILES)
 clean:
 	rm $(BINDIR)/*.class
 
-run: $(CLASS_FILES)
+run_mean: $(CLASS_FILES)
 	java -cp $(BINDIR) MeanFilterSerial $(input)
+
+run_median: $(CLASS_FILES)
+	java -cp $(BINDIR) MedianFilterSerial $(input)
 
 docs:
 	javadoc -d $(DOCDIR)/ $(SRCDIR)/*.java

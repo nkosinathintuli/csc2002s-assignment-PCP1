@@ -39,7 +39,7 @@ public class MeanFilterSerial
 		int width = inputImg.getWidth();
 		int height = inputImg.getHeight();
 		
-		//read every pixel in the image and apply a windowWidth by windowWidth mean filter to it and save it to a new image
+		//read pixel in the image and apply a windowWidth x windowWidth mean filter to it and save it to a new image
 		BufferedImage outputImg = new BufferedImage(width, height, inputImg.getType());
 		for (int i=1; i<width-1; i++)
 		{
