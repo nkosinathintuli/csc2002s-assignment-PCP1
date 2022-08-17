@@ -10,12 +10,12 @@ public class MeanFilterSerial
 	public static void main(String[] args)
 	{
 		//check user input
-		if (args.length<3)
+		if (args.length!=3)
 		{
-			System.exit(0);
+			System.out.println("Usage: java MeanFilterSerial <input image> <output image> <filter size>");
+			System.exit(1);
 		}
 
-		//declare variables 
 
 		//capture user input
 		String inputImgName = args[0];
@@ -38,40 +38,41 @@ public class MeanFilterSerial
 		//get image width and height
 		int width = inputImg.getWidth();
 		int height = inputImg.getHeight();
-
-		//read every pixel in the image and apply a 3 by 3 mean filter to it and save it to a new image
+		
+		//read every pixel in the image and apply a windowWidth by windowWidth mean filter to it and save it to a new image
 		BufferedImage outputImg = new BufferedImage(width, height, inputImg.getType());
-		for (int i = 0; i < width; i++)
+		for (int i=1; i<width-1; i++)
 		{
-			for (int j = 0; j < height; j++)
+			for (int j=1; j<height-1; j++)
 			{
 				int red = 0;
 				int green = 0;
 				int blue = 0;
-				int count = 0;
-				for (int k = -windowWidth; k <= windowWidth; k++)
+				
+				for (int k=-windowWidth/2; k<(windowWidth/2)+1; k++)
 				{
-					for (int l = -windowWidth; l <= windowWidth; l++)
+					for (int l=-windowWidth/2; l<(windowWidth/2)+1; l++)
 					{
-						if (i+k >= 0 && i+k < width && j+l >= 0 && j+l < height)
+						if (i+k>=0 && i+k<width && j+l>=0 && j+l<height)
 						{
-							red += inputImg.getRGB(i+k, j+l) >> 16 & 0xFF;
-							green += inputImg.getRGB(i+k, j+l) >> 8 & 0xFF;
+							red += inputImg.getRGB(i+k, j+l)>>16 & 0xFF;
+							green += inputImg.getRGB(i+k, j+l)>>8 & 0xFF;
 							blue += inputImg.getRGB(i+k, j+l) & 0xFF;
-							count++;
 						}
 					}
 				}
-				red /= count;
-				green /= count;
-				blue /= count;
-				outputImg.setRGB(i, j, (red << 16) | (green << 8) | blue);
+				red /= (windowWidth*windowWidth);
+				green /= (windowWidth*windowWidth);
+				blue /= (windowWidth*windowWidth);
+				outputImg.setRGB(i, j, (red<<16) | (green<<8) | blue);
 			}
-		} 
+
+		}
+		
 		//write output image
 		try
 		{
-			ImageIO.write(outputImg, "png", new File(outputImgName));
+			ImageIO.write(outputImg, "png", new File("./data/"+outputImgName));
 		}
 		catch (IOException e)
 		{
@@ -79,8 +80,5 @@ public class MeanFilterSerial
 			System.exit(0);
 		}
 
-
-
-		//Apply a mean filter function
 	}
 }
