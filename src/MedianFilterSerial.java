@@ -22,6 +22,8 @@ public class MedianFilterSerial
 		String outputImgName = args[1];
 		int windowWidth = Integer.parseInt(args[2]);
 
+		int a = windowWidth/2;
+		
 		//read input image
 		BufferedImage inputImg = null;
 		try
@@ -51,9 +53,9 @@ public class MedianFilterSerial
 				int[] greenArray = new int[windowWidth*windowWidth];
 				int[] blueArray = new int[windowWidth*windowWidth];
 				int count = 0;
-				for (int k=-windowWidth/2; k<(windowWidth/2)+1; k++)
+				for (int k=-a; k<a+1; k++)
 				{
-					for (int l=-windowWidth/2; l<(windowWidth/2)+1; l++)
+					for (int l=-a; l<a+1; l++)
 					{
 						if (i+k>=0 && i+k<width && j+l>=0 && j+l<height)
 						{
