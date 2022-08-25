@@ -25,5 +25,8 @@ run_mean: $(CLASS_FILES)
 run_median: $(CLASS_FILES)
 	java -cp $(BINDIR) MedianFilterSerial $(input)
 
+run_mean_parallel: $(CLASS_FILES)
+	java -cp $(BINDIR) MeanFilterParallel $(input)
+
 docs:
 	javadoc -d $(DOCDIR)/ $(SRCDIR)/*.java

@@ -54,11 +54,13 @@ public class MeanFilterSerial
 				{
 					for (int l=-a; l<a+1; l++)
 					{
-						if (i+k>=0 && i+k<width && j+l>=0 && j+l<height)
+						if (i+k<width && j+l<height)
 						{
-							red += inputImg.getRGB(i+k, j+l)>>16 & 0xFF;
-							green += inputImg.getRGB(i+k, j+l)>>8 & 0xFF;
-							blue += inputImg.getRGB(i+k, j+l) & 0xFF;
+							int x = Math.abs(i+k);
+							int y = Math.abs(j+l);
+							red += inputImg.getRGB(x, y)>>16 & 0xFF;
+							green += inputImg.getRGB(x, y)>>8 & 0xFF;
+							blue += inputImg.getRGB(x, y) & 0xFF;
 						}
 					}
 				}
